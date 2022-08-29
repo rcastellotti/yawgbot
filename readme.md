@@ -7,6 +7,12 @@ Yet Another WG-gesucht bot, stupid problems require stupid solutions :)
 + install the dependencies with `pip3 install -r requirements.txt`
 + configure `.env.sample` and rename it to `.env`
 + run the bot with `python3 bot.py`
++ (optional) if needed, (on linux) you can add a cronjob to periodically run the script, for example to run the script hourly simply add 
+    ```
+    0 * * * * <YOUR_USERNAME> /home/<YOUR_USERNAME>/yawgbot/venv/bin/python3 /home/<YOUR_USERNAME>/yawgbot/bot.py >> /home/<YOUR_USERNAME>/yawgbot.log 2>&1
+    ```
+    to `/etc/crontab`, this is far from being an elegant solution, but this script was quickly thrown togheter, for the moment I am simply redirecting the logs printed to STDOUT to a file
+
 + enjoy, and check for [news](https://www.wg-gesucht.de/nachrichten.html)
 
 
@@ -38,3 +44,4 @@ INFO:root:contacted ad: THE FIZZ Munich – Fully furnished Apartments for Stude
 INFO:root:contacted ad: THE FIZZ München – Wohnen auf Zeit – Vollmöblierte Apartments mit flexiblen Mietzeiten
 
 ```
+
