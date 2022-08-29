@@ -7,9 +7,10 @@ import logging
 import os
 from dotenv import load_dotenv
 
+URL = "https://www.wg-gesucht.de/1-zimmer-wohnungen-in-Munchen.90.1.1.{}.html"
+
 ID_REGEX = r"\.(\d*)\.html"
 load_dotenv()
-URL = os.environ["URL"]
 USER = os.environ["LOGIN_EMAIL_USERNAME"]
 PASSWORD = os.environ["LOGIN_PASSWORD"]
 TEMPLATE_MESSAGE = os.environ["TEMPLATE_MESSAGE"]
@@ -66,24 +67,29 @@ class Listing:
             params={"action": "conversations"},
             json=json_data,
         )
+        # logging.info(f"contacted ad: {self.name} - {self.price} - {self.dates}")
         logging.info(f"contacted ad: {self.name}")
+        logging.debug(response.text)
 
 
 def main():
     logging.info(f"loaded config for user {USER}")
-    r = requests.get(URL)
-    soup = bs(r.text, "html.parser")
-    listingSoup = soup.select(".wgg_card:not(.noprint)")
+    for i in range(5):
+        r = requests.get(URL.format(i))
+        soup = bs(r.text, "html.parser")
+        listingSoup = soup.select(".wgg_card:not(.noprint)")
 
-    for l in listingSoup:
-        listing = Listing(
-            name=l.find_all("a")[1].text.strip(),
-            url=l.find_all("a")[1]["href"],
-            square_meters=l.find_all(attrs={"class": "col-xs-3"})[1].text.strip(),
-            dates="".join(l.find(attrs={"class": "col-xs-5 text-center"}).text.split()),
-            price=l.find_all(attrs={"class": "col-xs-3"})[0].text.strip(),
-        )
-        listing.send_message()
+        for l in listingSoup:
+            listing = Listing(
+                name=l.find_all("a")[1].text.strip(),
+                url=l.find_all("a")[1]["href"],
+                square_meters=l.find_all(attrs={"class": "col-xs-3"})[1].text.strip(),
+                dates="".join(
+                    l.find(attrs={"class": "col-xs-5 text-center"}).text.split()
+                ),
+                price=l.find_all(attrs={"class": "col-xs-3"})[0].text.strip(),
+            )
+            listing.send_message()
 
 
 if __name__ == "__main__":
