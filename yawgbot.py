@@ -52,7 +52,7 @@ class Listing(Base):
                 },
             ],
             "ad_type": "0",
-            "ad_id": self.id,
+            "ad_id": self.wg_id,
         }
 
         response = s.post(
@@ -99,8 +99,7 @@ class Bot:
 
     def run(self):
         logging.info(f"loaded config for user:{self.USER}")
-        for i in range(1, 25):
-
+        for i in range(1, 5):
             logging.info(f"requesting page:{self.url.format(i)}")
             r = requests.get(self.url.format(i))
             soup = bs(r.text, "html.parser")
@@ -130,8 +129,8 @@ class Bot:
                 )
                 if not exists:
                     session.add(listing)
-                    logging.info(f"contacting ad: {listing.name}")
                     listing.send_message()
+                    logging.info(f"contacting ad: {listing.name}")
                     session.commit()
                 else:
                     logging.warning(f"skipping ad:{listing.name}")
