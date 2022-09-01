@@ -2,7 +2,7 @@
 
 Yet Another WG-gesucht bot, stupid problems require stupid solutions :)
 
-Yawgbot is a simple python bot to find accomodation using the popular webiste [https://wg-gesucht.de](https://wg-gesucht.de), it uses a SQLite database to save contacted ads in order to perform less requests to the website and not get rate-limited, it also offers a simple web UI to track your progress.
+Yawgbot is a simple python bot to find accomodation using the popular website [https://wg-gesucht.de](https://wg-gesucht.de), it uses a SQLite database to save contacted ads in order to perform less requests to the website and escaping rate-limiting, it also offers a simple web UI to track your progress.
 
 ## instructions
 
