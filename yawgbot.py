@@ -8,14 +8,13 @@ from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.orm import declarative_base, sessionmaker
 import datetime
 import logging
-
+from sqlalchemy_utils import database_exists
 ID_REGEX = r"\.(\d*)\.html"
 
 load_dotenv()
-engine = create_engine("sqlite:///test.db", echo=False)
+engine = create_engine("sqlite:///yawgbot.sqlite", echo=False)
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
-
 
 class Listing(Base):
     __tablename__ = "listings"
@@ -72,6 +71,8 @@ class Bot:
 
     def __init__(self, url):
         self.url = url
+        if (not database_exists("sqlite:///test.sqlite")):
+            Base.metadata.create_all(engine)
 
     def add_conversation_url_and_read_info(self):
         s = requests.Session()

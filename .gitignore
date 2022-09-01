@@ -4,5 +4,5 @@ venv/
 celerybeat-schedule
 celerydb.sqlite
 test.py
-test.db
+yawgbot.sqlite
 __pycache__/

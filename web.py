@@ -10,7 +10,7 @@ CELERY_RESULT_DBURI = "db+sqlite:///celerydb.sqlite"
 BROKER_URL = "sqla+sqlite:///celerydb.sqlite"
 
 
-engine = create_engine("sqlite:///test.db", echo=False)
+engine = create_engine("sqlite:///yawgbot.sqlite", echo=False)
 Base = declarative_base()
 session_factory = sessionmaker(bind=engine)
 Session = scoped_session(session_factory)
