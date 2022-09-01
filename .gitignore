@@ -1,3 +1,8 @@
 .env
 venv/
 .vscode
+celerybeat-schedule
+celerydb.sqlite
+test.py
+test.db
+__pycache__/

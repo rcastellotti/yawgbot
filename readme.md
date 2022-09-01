@@ -1,47 +1,38 @@
 # yawgbot
+
 Yet Another WG-gesucht bot, stupid problems require stupid solutions :)
 
+Yawgbot is a simple python bot to find accomodation using the popular webiste [https://wg-gesucht.de](https://wg-gesucht.de), it uses a SQLite database to save contacted ads in order to perform less requests to the website and not get rate-limited, it also offers a simple web UI to track your progress.
+
 ## instructions
-+ create a python virtual environment with `python3 -m venv vev`
-+ activate the virtual environment with `source venv/bin/activate` (might be different if not using bash)
-+ install the dependencies with `pip3 install -r requirements.txt`
-+ configure `.env.sample` and rename it to `.env`
-+ run the bot with `python3 bot.py`
-+ (optional) if needed, (on linux) you can add a cronjob to periodically run the script, for example to run the script hourly simply add 
-    ```
-    0 * * * * <YOUR_USERNAME> /home/<YOUR_USERNAME>/yawgbot/venv/bin/python3 /home/<YOUR_USERNAME>/yawgbot/bot.py >> /home/<YOUR_USERNAME>/yawgbot.log 2>&1
-    ```
-    to `/etc/crontab`, this is far from being an elegant solution, but this script was quickly thrown togheter, for the moment I am simply redirecting the logs printed to STDOUT to a file
 
-+ enjoy, and check for [news](https://www.wg-gesucht.de/nachrichten.html)
+- create a python virtual environment with `python3 -m venv vev`
+- activate the virtual environment with `source venv/bin/activate` (might be different if not using bash)
+- install the dependencies with `pip3 install -r requirements.txt`
+- configure `.env.sample` and rename it to `.env`
 
+When configuring for use go on [https://wg-gesucht.de](https://wg-gesucht.de) and copy the url you are using to look for accomodation, then subsitute the last number with `{}` in order to be able to search across multiple pages, for example, if looking for appartments in Munich: base url is `https://www.wg-gesucht.de/1-zimmer-wohnungen-in-Munchen.90.1.1.1.html`, replace the last `1` as follows: `https://www.wg-gesucht.de/1-zimmer-wohnungen-in-Munchen.90.1.1.{}.html`
 
-## sample usage
+## running manually
 
-```bash
-(venv) rc@s369 ~/therealwg (master)> python3 bot.py
-INFO:root:loaded config for user rcastellotti@protonmail.com
-INFO:root:contacted ad: Zimmer für Wiesn zu vermieten
-INFO:root:contacted ad: Helle Wohnung mit Balkon Schwabing
-INFO:root:contacted ad: Hackerbrücke | Möbl. 1-Zimmer Appartement | Panorama Towers Arnulfpark
-INFO:root:contacted ad: 23m² 1-Zimmer-Wohnung möbliert in Schwabing - Zwischenmiete
-INFO:root:contacted ad: Freies Apartment im Studentenwohnheim (eigenes Bad)
-INFO:root:contacted ad: Schön eingerichtete 1-Zimmer-Wohnung mit Balkon
-INFO:root:contacted ad: Möblierte 1 Zimmer Wohnung in Schwabing West
-INFO:root:contacted ad: Kurzfristig günstiges Zimmer frei!
-INFO:root:contacted ad: Lovely & Cozy Studio 😍
-INFO:root:contacted ad: Möblierte 1-Zimmer-Wohnung zur Untermiete
-INFO:root:contacted ad: (Verfügbar 1-24 Monate) - Souterrain München | 20min Oktoberfest/Zentrum
-INFO:root:contacted ad: Möblierte Zwischenmiete 10 min zum Hbf
-INFO:root:contacted ad: 1-Zimmer-Wohnung in Forstenrieder Allee
-INFO:root:contacted ad: Möbl. Zimmer mit eigenem Eingang, Bad, Kitchenette verkehrsgünstig in München Obergiesing
-INFO:root:contacted ad: Zwischenmiete / 1-Zi-Whg Nähe Theresienwiese
-INFO:root:contacted ad: 1-Zimmer-Wohnung befristet - nur an Frauen, sehr gute Anbindung Autobahn/U-Bahn/S-Bahn und Nachtbus
-INFO:root:contacted ad: Sonniges Studentenappartement zur Zwischenmiete
-INFO:root:contacted ad: 1-Zimmerwohnung Maxvorstadt möbliert zur Zwischenmiete
-INFO:root:contacted ad: THE FIZZ München – Vollmöbliertes Apartment für Studenten
-INFO:root:contacted ad: THE FIZZ Munich – Fully furnished Apartments for Students
-INFO:root:contacted ad: THE FIZZ München – Wohnen auf Zeit – Vollmöblierte Apartments mit flexiblen Mietzeiten
+Running the bot manually is as simple as creating a new file named `bot.py` with the following content and running it:
 
+```python
+from yawgbot import Bot
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
+URL = "https://www.wg-gesucht.de/1-zimmer-wohnungen-in-Munchen.90.1.1.{}.html"
+bot = Bot(url=URL)
+bot.run()
 ```
 
+## running periodically with celery and web UI
+
+Yawgbot uses [Celery](https://docs.celeryq.dev/en/stable/) to schedule tasks. By default it runs each 10 minutes. It is configured to use [SQLite](https://sqlite.org) as both [backend and broker](https://docs.celeryq.dev/en/stable/getting-started/backends-and-brokers/index.html), to know more read the docs.
+
+- run the web UI with `python3 web.py`
+- run `celery -A web.celery worker` to run the worker
+- run `celery -A web.celery beat` to schedule the bot
+
+Now you can check the web UI to have a summary of contacted ads, reach it locally at: <http://localhost:5000/> or at `/` wherever you deployed Yawgbot
