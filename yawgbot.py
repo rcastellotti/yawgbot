@@ -9,6 +9,7 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 import datetime
 import logging
 from sqlalchemy_utils import database_exists
+import time
 ID_REGEX = r"\.(\d*)\.html"
 
 load_dotenv()
@@ -99,7 +100,7 @@ class Bot:
 
     def run(self):
         logging.info(f"loaded config for user:{self.USER}")
-        for i in range(1, 5):
+        for i in range(0, 5):
             logging.info(f"requesting page:{self.url.format(i)}")
             r = requests.get(self.url.format(i))
             soup = bs(r.text, "html.parser")
@@ -134,5 +135,6 @@ class Bot:
                     session.commit()
                 else:
                     logging.warning(f"skipping ad:{listing.name}")
+            time.sleep(40)
 
         logging.info(f"now updating chat_urls and read ")
