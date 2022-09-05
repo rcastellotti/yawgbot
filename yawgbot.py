@@ -12,7 +12,7 @@ from sqlalchemy_utils import database_exists
 import time
 
 ID_REGEX = r"\.(\d*)\.html"
-
+IMG_REGEX = r"\(([^\)]+)\)"
 load_dotenv()
 engine = create_engine("sqlite:///yawgbot.sqlite", echo=False)
 Base = declarative_base()
@@ -27,6 +27,7 @@ class Listing(Base):
     price = Column(Integer)
     name = Column(String)
     url = Column(String)
+    image = Column(String)
     location = Column(String)
     square_meters = Column(String)
     dates = Column(String)
@@ -111,7 +112,6 @@ powered by: <a href="https://github.com/rcastellotti/yawgbot">yawgbot</a> // mad
             r = requests.get(self.url.format(i))
             soup = bs(r.text, "html.parser")
             listingSoup = soup.select(".wgg_card:not(.noprint)")
-
             for l in listingSoup:
                 url = "https://www.wg-gesucht.de" + l.find_all("a")[1]["href"]
                 name = l.find_all("a")[1].text.strip()
@@ -128,13 +128,15 @@ powered by: <a href="https://github.com/rcastellotti/yawgbot">yawgbot</a> // mad
                 location = location_string[location_string.find("|") + 1 :].replace(
                     "|", " | "
                 )
-
                 listing = Listing(
                     name=name,
                     url=url,
                     wg_id=re.findall(ID_REGEX, url)[0],
                     square_meters=square_meters,
                     location=location,
+                    image=re.findall(
+                        IMG_REGEX, str(l.find(attrs={"class": "card_image"}).find("a"))
+                    )[0],
                     dates=dates,
                     price=price,
                 )

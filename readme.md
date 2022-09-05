@@ -32,8 +32,8 @@ bot.run()
 Yawgbot uses [Celery](https://docs.celeryq.dev/en/stable/) to schedule tasks. By default it runs each 10 minutes. It is configured to use [SQLite](https://sqlite.org) as both [backend and broker](https://docs.celeryq.dev/en/stable/getting-started/backends-and-brokers/index.html), to know more read the docs.
 
 - run the web UI with `python3 app.py`
-- run `celery -A app.celery worker` to run the worker
-- run `celery -A app.celery beat` to schedule the bot
+- run `celery -A bot.celery worker` to run the worker
+- run `celery -A bot.celery beat` to schedule the bot
 
 Now you can check the web UI to have a summary of contacted ads, reach it locally at: <http://localhost:5000/> or at `/` wherever you deployed Yawgbot
 
