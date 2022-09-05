@@ -140,10 +140,7 @@ powered by: <a href="https://github.com/rcastellotti/yawgbot">yawgbot</a> // mad
                 )
                 session = Session()
 
-                exists = bool(
-                    session.query(Listing).filter_by(wg_id=listing.wg_id).first()
-                )
-                if not exists:
+                if not session.query(Listing).filter_by(wg_id=listing.wg_id).first():
                     session.add(listing)
                     listing.send_message()
                     if self.telegram:
