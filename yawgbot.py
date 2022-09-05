@@ -83,13 +83,24 @@ class Bot:
         r = requests.get(
             f"https://api.telegram.org/bot{self.TG_API_KEY}/sendMessage",
             params={
-                "text": f"ℹ️ contacted ad #{listing.wg_id}\n📍<a href='https://www.google.com/maps/search/?api=1&query={listing.location}'>view location on Google Maps</a>\n📐 {listing.square_meters}\n💰 {listing.price}\n📅 {listing.dates}\n🔗 <a href='{listing.url}'>view on wg-gesucht.de</a>",
+                "text": f"""<b>yawgbot telegram updates</b>
+
+ℹ️ contacted ad <a href="{listing.url}">#{listing.wg_id}</a>
+📍<a href='https://www.google.com/maps/search/?api=1&query={listing.location}'>view location on Google Maps</a>
+📐 {listing.square_meters}
+💰 {listing.price}
+📅 {listing.dates}
+🔗 <a href='{listing.url}'>view on wg-gesucht.de</a>
+
+powered by: <a href="https://github.com/rcastellotti/yawgbot">yawgbot</a> // made with ❤️ by @rcastellotti
+""",
                 "chat_id": self.TG_CHAT_ID,
                 "parse_mode": "HTML",
                 "disable_web_page_preview": True,
             },
         )
         logging.debug(r.text)
+
     def run(self):
         logging.info(f"loaded config for user:{self.USER}")
         for i in range(0, 5):
