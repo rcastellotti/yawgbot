@@ -73,7 +73,7 @@ class Bot:
     PASSWORD = os.environ["LOGIN_PASSWORD"]
     TEMPLATE_MESSAGE = os.environ["TEMPLATE_MESSAGE"]
 
-    def __init__(self, url, telegram):
+    def __init__(self, url, telegram=False):
         self.url = url
         self.telegram = telegram
         if not database_exists("sqlite:///test.sqlite"):

@@ -2,7 +2,7 @@
 
 Yet Another WG-gesucht bot, stupid problems require stupid solutions :)
 
-Yawgbot is a simple python bot to find accomodation using the popular website [https://wg-gesucht.de](https://wg-gesucht.de), it uses a SQLite database to save contacted ads in order to perform less requests to the website and escaping rate-limiting, it also offers a simple web UI to track your progress.
+Yawgbot is a simple python bot to find accomodation using the popular website [https://wg-gesucht.de](https://wg-gesucht.de), it uses a SQLite database to save contacted ads in order to perform less requests to the website and escaping rate-limiting, it also offers a simple web UI to track your progress and notifications for new ads via Telegram, set `TG_CHAT_ID` and `TG_API_KEY` and instantiate `Bot` with `telegram=True`, to start receving notifications in a group or in a chat on Telegram.
 
 ## instructions
 
@@ -11,7 +11,7 @@ Yawgbot is a simple python bot to find accomodation using the popular website [h
 - install the dependencies with `pip3 install -r requirements.txt`
 - configure `.env.sample` and rename it to `.env`
 
-When configuring for use go on [https://wg-gesucht.de](https://wg-gesucht.de) and copy the url you are using to look for accomodation, then subsitute the last number with `{}` in order to be able to search across multiple pages, for example, if looking for appartments in Munich: base url is `https://www.wg-gesucht.de/1-zimmer-wohnungen-in-Munchen.90.1.1.1.html`, replace the last `1` as follows: `https://www.wg-gesucht.de/1-zimmer-wohnungen-in-Munchen.90.1.1.{}.html`
+When configuring for use go on [https://wg-gesucht.de](https://wg-gesucht.de) and copy the url you are using to look for accomodation, then replace the last number with `{}` in order to be able to search across multiple pages, for example, if looking for appartments in Munich: base url is `https://www.wg-gesucht.de/1-zimmer-wohnungen-in-Munchen.90.1.1.1.html`, replace the last `1` as follows: `https://www.wg-gesucht.de/1-zimmer-wohnungen-in-Munchen.90.1.1.{}.html`
 
 ## running manually
 
@@ -23,7 +23,7 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 URL = "https://www.wg-gesucht.de/1-zimmer-wohnungen-in-Munchen.90.1.1.{}.html"
-bot = Bot(url=URL)
+bot = Bot(url=URL,telegram=True)
 bot.run()
 ```
 
@@ -36,3 +36,5 @@ Yawgbot uses [Celery](https://docs.celeryq.dev/en/stable/) to schedule tasks. By
 - run `celery -A web.celery beat` to schedule the bot
 
 Now you can check the web UI to have a summary of contacted ads, reach it locally at: <http://localhost:5000/> or at `/` wherever you deployed Yawgbot
+
+## telegram notifications
