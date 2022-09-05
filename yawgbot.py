@@ -83,14 +83,13 @@ class Bot:
         r = requests.get(
             f"https://api.telegram.org/bot{self.TG_API_KEY}/sendMessage",
             params={
-                "text": f"ℹ️ contacted a new ad #{listing.wg_id}\n📍<a href='https://www.google.com/maps/search/?api=1&query={listing.location}'>view location on Google Maps</a>\n📐 {listing.square_meters}\n💰 {listing.price}\n📅 {listing.dates}\n🔗 <a href='{listing.url}'>view on wg-gesucht.de</a>",
+                "text": f"ℹ️ contacted ad #{listing.wg_id}\n📍<a href='https://www.google.com/maps/search/?api=1&query={listing.location}'>view location on Google Maps</a>\n📐 {listing.square_meters}\n💰 {listing.price}\n📅 {listing.dates}\n🔗 <a href='{listing.url}'>view on wg-gesucht.de</a>",
                 "chat_id": self.TG_CHAT_ID,
                 "parse_mode": "HTML",
                 "disable_web_page_preview": True,
             },
         )
-        print(r.text)
-
+        logging.debug(r.text)
     def run(self):
         logging.info(f"loaded config for user:{self.USER}")
         for i in range(0, 5):

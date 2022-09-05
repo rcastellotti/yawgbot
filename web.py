@@ -23,7 +23,7 @@ app = Flask(__name__, template_folder=".")
 @celery.task
 def runBot():
     URL = "https://www.wg-gesucht.de/1-zimmer-wohnungen-in-Munchen.90.1.1.{}.html"
-    bot = Bot(url=URL)
+    bot = Bot(url=URL,telegram=True)
     bot.run()
 
 
