@@ -1,51 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8" />
-      <script src="https://cdn.tailwindcss.com"></script>
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>yawgbot | web interface</title>
-   </head>
-   <body class="bg-gray-100 sm:w-3/4 mx-auto">
-      <div>
-         <table
-            class="w-full table table-autotext-xs sm:text-sm"
-            >
-            <thead class="bg-gray-200">
-               <th scope="col">#</th>
-               <th scope="col">id</th>
-               <th scope="col">price</th>
-               <th scope="col">time</th>
-               <th scope="col">name</th>
-               <th scope="col" class="hidden sm:block">square_meters</th>
-               <th scope="col">url</th>
-               <th scope="col">chat_url</th>
-               <th scope="col">dates</th>
-               <th scope="col">read?</th>
-            </thead>
-            <tbody class="bg-white">
-               {%for listing in listings%}
-               <tr class="border px-2 divide-x border-t-black">
-                  <td class="font-bold p-2">{{listing.id}}</td>
-                  <td class="font-bold p-2">{{listing.wg_id}}</td>
-                  <td class="p-2 whitespace-nowrap">{{listing.price.strip()}}</td>
-                  <td class="p-2 whitespace-nowrap">{{listing.added_at}}</td>
-                  <td class="p-2">{{listing.name}}</td>
-                  <td class="p-2 hidden sm:block">{{listing.square_meters}}</td>
-                  <td class="p-2">
-                     <a class="text-blue-700 underline" href="{{listing.url}}">url</a>
-                  </td>
-                  <td class="p-2">
-                     <a class="text-blue-700 underline" href="{{listing.chat_url}}"
-                        >chat
-                     </a>
-                  </td>
-                  <td class="p-2">{{listing.dates}}</td>
-                  <td class="p-2">{{listing.read}}</td>
-               </tr>
-               {%endfor%}
-            </tbody>
-         </table>
-      </div>
-   </body>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>yawgbot | web interface</title>
+  </head>
+  <body class="bg-gray-100 w-11/12 py-2 sm:w-3/4 mx-auto">
+    <div class="border overflow-x-auto relative shadow-md rounded">
+      <table
+        class="w-full text-xs lg:text-sm text-left text-gray-800 table-auto"
+      >
+        <thead class="border-b text-gray-700 uppercase bg-gray-50">
+          <tr>
+            {% for col in listings[0].__table__.columns%}
+            <th scope="col" class="px-2 py-1">{{col}}</th>
+            {%endfor%}
+          </tr>
+        </thead>
+        <tbody>
+          {% for listing in listings %}
+          <tr class="even:bg-gray-100 bg-white border-b hover:bg-gray-50">
+            <td scope="row" class="px-2 font-bold">{{listing.id}}</td>
+            <td scope="row" class="px-2">{{listing.wg_id}}</td>
+            <td scope="row" class="px-2 whitespace-nowrap">{{listing.added_at}}</td>
+            <td scope="row" class="px-2">{{listing.price}}</td>
+            <td scope="row" class="px-2">{{listing.name}}</td>
+            <td scope="row" class="text-blue-500 px-2"><a href="{{listing.url}}">url</a></td>
+            <td scope="row" class="px-2 whitespace-nowrap">{{listing.location}}</td>
+            <td scope="row" class="px-2">{{listing.square_meters}}</td>
+            <td scope="row" class="px-2 whitespace-nowrap">{{listing.dates}}</td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+    </div>
+  </body>
 </html>

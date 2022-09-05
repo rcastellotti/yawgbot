@@ -29,8 +29,7 @@ def runBot():
 
 @celery.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
-    # Calls runBot('hello') every 20 minutes.
-    sender.add_periodic_task(60*20, runBot.s(), name="runBot every 5 minutes")
+    sender.add_periodic_task(60*5, runBot.s(), name="runBot every 5 minutes")
 
 
 @app.get("/")

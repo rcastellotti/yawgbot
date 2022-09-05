@@ -31,6 +31,9 @@ class Listing(Base):
     square_meters = Column(String)
     dates = Column(String)
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
     def send_message(self):
         s = requests.Session()
         r = s.post(
@@ -150,5 +153,3 @@ powered by: <a href="https://github.com/rcastellotti/yawgbot">yawgbot</a> // mad
                 else:
                     logging.warning(f"skipping ad:{listing.name}")
             time.sleep(40)
-
-        logging.info(f"now updating chat_urls and read ")
