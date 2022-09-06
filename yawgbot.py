@@ -128,6 +128,11 @@ powered by: <a href="https://github.com/rcastellotti/yawgbot">yawgbot</a> // mad
                 location = location_string[location_string.find("|") + 1 :].replace(
                     "|", " | "
                 )
+                print(
+                    re.findall(
+                        IMG_REGEX, str(l.find(attrs={"class": "card_image"}).find("a"))
+                    )[0]
+                )
                 listing = Listing(
                     name=name,
                     url=url,

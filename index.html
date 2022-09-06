@@ -46,7 +46,6 @@
       }
     }
   </script>
-
   <body
     class="text-gray-600 dark:text-gray-200 bg-[url('/static/bg.png')] dark:bg-zinc-700"
   >
@@ -60,9 +59,11 @@
         <div class="grid grid-cols-12 gap-x-2">
           <span class="col-span-12 flex gap-x-1 items-center">
             <div class="h-4 w-4 bg-orange-400 rounded"></div>
-            <small class="text-gray-400 dark:stone-100"> · {{l.added_at}}</small>
+            <small class="text-gray-400 dark:stone-100">
+              {{ l.added_at }}</small
+            >
             <span class="ml-auto">
-              <a class="text-xs" href="/l/{{l.url}}">#{{l.wg_id}}</a>
+              <a class="text-xs" href="{{ l.url }}">#{{ l.wg_id }}</a>
               <i class="bi bi-three-dots-vertical"></i>
             </span>
           </span>
@@ -71,26 +72,48 @@
           >
             {{ l.name }}
           </h1>
-          <img src="{{l.image}}" class="col-span-4 aspect-square" />
+          {% if l.image %}
+          <img src="{{ l.image }}" class="col-span-4 aspect-square" />
+          {% else %}
+          <div class="{{ randomClass()}} col-span-4 flex">
+            <i class="bi bi-house-fill text-5xl mx-auto my-auto"></i>
+          </div>
+          {% endif %}
           <div class="col-span-8 flex flex-col justify-between gap-y-2">
             <div class="flex flex-col">
               <div class="flex items-center gap-x-1">
-                <i class="bi bi-calendar-event-fill"></i>{{l.dates}}
+                <i class="bi bi-calendar-event-fill"></i>{{ l.dates }}
               </div>
               <div class="flex items-center gap-x-1">
-                <i class="bi bi-geo-fill"></i> {{l.location}}
+                <i class="bi bi-geo-fill"></i> {{ l.location }}
               </div>
               <div class="flex items-center gap-x-1">
-                <i class="bi bi-currency-euro"></i> {{l.price}}
+                <i class="bi bi-currency-euro"></i> {{ l.price }}
               </div>
               <div class="flex items-center gap-x-1">
-                <i class="bi bi-rulers"></i> {{l.square_meters}}
+                <i class="bi bi-rulers"></i> {{ l.square_meters }}
               </div>
             </div>
           </div>
         </div>
       </div>
-      {% endfor %} {% endblock %}
+      {% endfor %}
+      <div class="grid grid-cols-2 w-full gap-x-5">
+        <a
+          href="?page={{prevPage}}"
+          class="flex py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-zinc-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-zinc-900 dark:hover:text-white"
+        >
+          <i class="mr-auto bi bi-chevron-left"></i>
+        </a>
+
+        <a
+          href="?page={{nextPage}}"
+          class="flex py-2 px-3 leading-tight text-gray-500 bg-white rounded border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-zinc-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-zinc-900 dark:hover:text-white"
+        >
+          <i class="ml-auto bi bi-chevron-right"></i>
+        </a>
+      </div>
+      {% endblock %}
     </div>
     <div
       onclick="toggleTheme()"
