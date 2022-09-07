@@ -16,7 +16,7 @@ class YawgbotPlugin(PluginBase):
     WG_GESUCHT_TEMPLATE_MESSAGE = os.environ["WG_GESUCHT_TEMPLATE_MESSAGE"]
     COLOR = "#f97316"
     PLATFORM = "https://www.wg-gesucht.de/"
-    BASE_URL = "https://www.wg-gesucht.de/wg-zimmer-und-1-zimmer-wohnungen-in-Munchen.90.0+1.1.{}.html"
+    WG_GESUCHT_BASE_URL = os.environ["WG_GESUCHT_BASE_URL"]
 
     def __init__(self):
         self.s = requests.Session()
@@ -102,7 +102,7 @@ class YawgbotPlugin(PluginBase):
 
     def run(self):
         for i in range(5):
-            ads = self.get_ads(self.BASE_URL.format(i))
+            ads = self.get_ads(self.WG_GESUCHT_BASE_URL.format(i))
             logging.debug(ads)
             for ad in ads:
                 self.create_listing(ad)
