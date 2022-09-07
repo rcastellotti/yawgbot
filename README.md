@@ -1,4 +1,5 @@
 # yawgbot
+[![PyPI version](https://badge.fury.io/py/yawgbot.svg)](https://badge.fury.io/py/yawgbot) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 Yet Another WG helper bot. WG stands for *Wohngemeinschaft*, a German word that refers to a living arrangement in which
 several tenants share an apartment. It is aimed to automate the extremely complex and time-consuming task of finding a
