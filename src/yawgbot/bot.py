@@ -31,9 +31,6 @@ class Listing(Base):
 
 
 class Bot:
-    TG_API_KEY = os.environ["TG_API_KEY"]
-    TG_CHAT_ID = os.environ["TG_CHAT_ID"]
-
     def __init__(self, platforms: list = []):
         self._platforms = []
         if platforms:

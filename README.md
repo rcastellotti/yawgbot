@@ -12,12 +12,15 @@ track your progress and gather your findings across different platforms.
 [//]: # (## configuration)
 
 [//]: # ()
+
 [//]: # (## creating a plugin)
 
 [//]: # ()
+
 [//]: # (## running periodically)
 
 [//]: # ()
+
 [//]: # (## instructions)
 
 [//]: # (- create a python virtual environment with `python3 -m venv vev`)
@@ -29,6 +32,7 @@ track your progress and gather your findings across different platforms.
 [//]: # (- configure `.env.sample` and rename it to `.env`)
 
 [//]: # ()
+
 [//]: # (When configuring for use go on [https://wg-gesucht.de]&#40;https://wg-gesucht.de&#41; and copy the url you are using to look for)
 
 [//]: # (accommodation, then replace the last number with `{}` in order to be able to search across multiple pages, for example,)
@@ -41,7 +45,11 @@ track your progress and gather your findings across different platforms.
 
 ## running manually
 
-Running the bot manually is as simple as creating a new file named `bot.py` with the following content and running it:
+To run the bot manually:
+
++ install the package with `pip3 install yawgbot` (a [virtual environment](https://docs.python.org/3/tutorial/venv.html) is suggested)
++ configure `.env.sample` and rename it to `.env`
++ create a new file named `bot.py` with the following content and run it:
 
 ```python
 from yawgbot import Bot
@@ -53,12 +61,16 @@ bot = Bot(platfors=["wg-gesucht"])
 bot.run()
 ```
 
-## running periodically with celery and web UI
+## running periodically with celery
 
-Yawgbot uses [Celery](https://docs.celeryq.dev/en/stable/) to schedule tasks. By default, it runs each 10 minutes. It is
+Yawgbot uses [Celery](https://docs.celeryq.dev/en/stable/) to schedule tasks. It is
 configured to use [SQLite](https://sqlite.org) as
 both [backend and broker](https://docs.celeryq.dev/en/stable/getting-started/backends-and-brokers/index.html), to know
-more read the docs.
+more read the docs. The file `run_yawgbot.py` is provided to run the bot each 5 minutes, to use it:
 
-- run `celery -A bot.celery worker` to run the worker
-- run `celery -A bot.celery beat` to schedule the bot
+- run `celery -A run_yawgbot.celery worker --loglevel=INFO` to run the worker
+- run `celery -A run_yawgbot.celery beat` to schedule the bot
+
+## web UI
+
+To start the web UI simply run `yawgbot-web`
