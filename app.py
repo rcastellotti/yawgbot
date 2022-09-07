@@ -12,7 +12,8 @@ Session = scoped_session(session_factory)
 
 app = Flask(__name__, template_folder=".")
 
-def randomClass():
+
+def random_class():
     wes = [
         "Royal2q0",
         "Royal2q1",
@@ -33,10 +34,10 @@ def index():
     page = request.args.get("page")
     if page is None:
         page = 0
-        nextPage = 1
+        next_page = 1
     page = int(page)
-    nextPage = page + 1
-    prevPage = page - 1
+    next_page = page + 1
+    prev_page = page - 1
     session = Session()
     listings = (
         session.query(Listing)
@@ -50,9 +51,9 @@ def index():
     return render_template(
         "index.html",
         listings=listings,
-        randomClass=randomClass,
-        prevPage=prevPage,
-        nextPage=nextPage,
+        random_class=random_class,
+        prev_page=prev_page,
+        next_page=next_page,
     )
 
 
