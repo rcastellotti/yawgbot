@@ -1,4 +1,4 @@
-from yawgbot import Listing
+from yawgbot.yawgbot import Listing
 from flask import Flask, render_template, request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker, scoped_session

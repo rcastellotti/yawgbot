@@ -1,127 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900"
-      rel="stylesheet"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>what wg-gesucht should look like</title>
-  </head>
-  <style type="text/tailwindcss">
-    @layer utilities {
-      .dark-bg {
-        background: linear-gradient(
-            rgba(255, 255, 255, 0.4),
-            rgba(255, 255, 255, 0.4)
-          ),
-          url("/static/bg-dark.png");
-      }
-      a {
-        @apply text-blue-500 dark:text-blue-400 hover:underline hover:bg-blue-200 hover:text-blue-800;
-      }
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900"
+    rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>what wg-gesucht should look like</title>
+</head>
+<style type="text/tailwindcss">
+  @layer utilities {
+    .dark-bg {
+      background: linear-gradient(rgba(255, 255, 255, 0.1),
+          rgba(255, 255, 255, 0.1)),
+        url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAABhWlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TtVUqDnYQcchQnSyIShEnrUIRKpRaoVUHk0tbC00akhQXR8G14ODHYtXBxVlXB1dBEPwAcXRyUnSREv+XFFrEeHDcj3f3HnfvAKFeZqrZMQaommWkE3Exm1sRA6/oRheCmEZMYqY+m0ol4Tm+7uHj612UZ3mf+3P0KnmTAT6ReIbphkW8ThzbtHTO+8RhtiEpxOfEowZdkPiR67LLb5yLDgs8M2xk0nPEYWKx2MZyG7MNQyWeJI4oqkb5QtZlhfMWZ7VcZc178heG8tryEtdpDiGBBSwiBREyqiihDAtRWjVSTKRpP+7hH3T8KXLJ5CqBkWMeFaiQHD/4H/zu1ixMjLtJoTjQ+WLbH8NAYBdo1Gz7+9i2GyeA/xm40lr+Sh2Y+iS91tIiR0DfNnBx3dLkPeByBxh40iVDciQ/TaFQAN7P6JtyQP8t0LPq9tbcx+kDkKGukjfAwSEwUqTsNY93B9t7+/dMs78fwBhyxiifGPMAAAAGYktHRADsAOwA7B0jFjYAAAAJcEhZcwAALiMAAC4jAXilP3YAAAAHdElNRQfmCQYNOAQ8mIQjAAABZ0lEQVRo3u2ZzQ6DIAzHseE5tuwVPRsPxrNP4G0P4CO6w7KFmE36QRllkHgx4q9Q+NPS7nK97S7Sxnlx09Cj33OalAGukoYayDT0bpwX9HtOkzL+yyMWvAIUIz79MNZ/nJf3o8nwYUeKAmH6hIrzGowWw4cfYjq+Bk6VXW0GfANijOKcC1oMoHYuXrVSKc+vIgEoLdTgMqo5ELv1vu3WveGce8ovRsspEssxTsrwqaSQI8MpGap7JOWSik3C/0W/KaNZDc/7lJtRus65jGno65FfKCldlTDq2uw1eAVSbcLcanVkAGYmLcgxcDyA+ebMaA0GUBL9UP4oNyM5GN1633bKEjrqeMy40BBNRoe5xC7hwIsxQAucO4oGawaLBtLqI7kvHzih89lMcaMBCcNzlgbG3blS3OKXlvgSu+XsbbOnYURDlLM4x9Q5YqVm0ursZlWr1dmJmaSJOrsmo9XZJbGSep3dcnsAb6bKZNmBuHIAAAAASUVORK5CYII=");
     }
+    
+    .bg {
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9bi6IVh3aQ4pCh6mJBVMRRq1CECqFWaNXB5NIvaNKQpLg4Cq4FBz8Wqw4uzro6uAqC4AeIm5uToouU+L+k0CLGg+N+vLv3uHsH+BsVpppd44CqWUY6mRCyuVWh+xVBRBHGKPokZupzopiC5/i6h4+vd3Ge5X3uz9Gv5E0G+ATiWaYbFvEG8fSmpXPeJ46wkqQQnxOPGXRB4keuyy6/cS467OeZESOTnieOEAvFDpY7mJUMlXiKOKaoGuX7sy4rnLc4q5Uaa92TvzCU11aWuU5zCEksYgkiBMiooYwKLMRp1Ugxkab9hIc/6vhFcsnkKoORYwFVqJAcP/gf/O7WLExOuEmhBBB8se2PYaB7F2jWbfv72LabJ0DgGbjS2v5qA5j5JL3e1mJHwMA2cHHd1uQ94HIHGHzSJUNypABNf6EAvJ/RN+WA8C3Qu+b21trH6QOQoa5SN8DBITBSpOx1j3f3dPb275lWfz9m2HKiPKlz6wAAACpQTFRF////8PDx5+fo8/P06urr5eXl9vb3+fn54uLi39/f/Pz87e3u3Nzc2NnZ5IJ4twAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB+UFGhMpIBxRuhAAAAHySURBVDjLnVQ9SwNBEH25S3J6sTitxDTBkIDanGIh2AjptDlSGNAmpLQKgqBdjIUQmwiKX80VBmIXtfHnObOzu7d+Ii6X2x3mZffNe3sD0JgD1qGHX4G/ZQIUuphKTdACBjYTDhEkCCV4Ao4AA3wF6sjJuhTBixHpzDQwpqmrgp56ApzKsUGTptsJBx2MKgwunXG0WyO8F7/FzKdDJNCgBQPHvNEIWGE+5/yiDTO+e8C9UwhmgQVTY24CX4Br8re2QzCAIei14RYFWxTXq4XosRCwQnw4MyPD9JjzIo8zEbzE61oEXyEqGjmkn5cJlmX8yMms/i0TuruNERsGROfZMuiSWz1bQpqxDgcikAwqs2hIqvoLXRPV1e2QQX4jTMx1GKsntIqyecsqIAvyMXIC27TFQiQcmvU0AfKs3CMjD4EdJrat+TwwpHqlyJzwvfXmK4pPM1UI/4LA18vCeGPCZFK96wxNB+qIgTpOXECZvdZr+hLI6xiGPV96a8yTuTRccSZF1ZGCbjI/MooJApGPRR+oY6eUGUupqrK/qJG5KPOM+dirgYLjJpK/ZdgPm2lIhl2fqKqFwb6orxm8/Kcf9H7sBw23H8T8Tf3aDy7l2LBP010kn6jbD1rcD/Lf9YNjtx/cfOkHrU/9oPyxHxRTbdk7dDxpKy0ahVoAAAAASUVORK5CYII=');
+    }
+    
+    a {
+      @apply text-blue-500 dark:text-blue-400 hover:underline hover:bg-blue-200 hover:text-blue-800;
+    }
+  }
   </style>
-  <script>
-    if (localStorage.theme === "dark") {
+<script>
+  if (localStorage.theme === "dark") {
+    document.documentElement.classList.add("dark");
+  }
+  tailwind.config = {
+    darkMode: "class",
+  };
+  function toggleTheme() {
+    if (localStorage.theme !== "dark") {
       document.documentElement.classList.add("dark");
+      localStorage.theme = "dark";
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.theme = "white";
     }
-    tailwind.config = {
-      darkMode: "class",
-    };
-    function toggleTheme() {
-      if (localStorage.theme !== "dark") {
-        document.documentElement.classList.add("dark");
-        localStorage.theme = "dark";
-      } else {
-        document.documentElement.classList.remove("dark");
-        localStorage.theme = "white";
-      }
-    }
-  </script>
-  <body
-    class="text-gray-600 dark:text-gray-200 bg-[url('/static/bg.png')] dark:bg-zinc-700"
-  >
+  }
+</script>
+
+<body class="text-gray-600 dark:text-gray-400 bg dark:dark-bg">
+  <div class="my-2 w-full px-2 sm:px-0 sm:w-5/12 2xl:w-3/12 mx-auto flex flex-col gap-y-2">
+    {% block content %} {% for l in listings %}
     <div
-      class="my-2 w-full px-2 sm:px-0 sm:w-5/12 2xl:w-3/12 mx-auto flex flex-col gap-y-2"
-    >
-      {% block content %} {% for l in listings %}
-      <div
-        class="p-2 group rounded border shadow-md hover:shadow-xl text-xs sm:text-sm bg-neutral-100 hover:bg-neutral-200 text-gray-600 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:text-gray-200 dark:border-zinc-900"
-      >
-        <div class="grid grid-cols-12 gap-x-2">
-          <span class="col-span-12 flex gap-x-1 items-center">
-            <div class="h-4 w-4 bg-orange-400 rounded"></div>
-            <small class="text-gray-400 dark:stone-100">
-              {{ l.added_at }}</small
-            >
-            <span class="ml-auto">
-              <a class="text-xs" href="{{ l.url }}">#{{ l.wg_id }}</a>
-              <i class="bi bi-three-dots-vertical"></i>
-            </span>
+      class="p-2 group rounded border shadow-md hover:shadow-xl text-xs sm:text-sm bg-neutral-100 hover:bg-neutral-200 text-gray-600 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:text-gray-300 dark:border-zinc-900">
+      <div class="grid grid-cols-12 gap-x-2">
+        <span class="col-span-12 flex gap-x-1 items-center">
+          <div class="h-4 w-4 bg-orange-400 rounded"></div>
+          <small class="text-gray-400 dark:stone-100">
+            {{ l.added_at }}</small>
+          <span class="ml-auto">
+            <a class="text-xs" href="{{ l.url }}">#{{ l.wg_id }}</a>
+            <i class="bi bi-three-dots-vertical"></i>
           </span>
-          <h1
-            class="col-span-12 first-letter:uppercase font-semibold truncate text-sm sm:text-lg text-black dark:text-white"
-          >
-            {{ l.name }}
-          </h1>
-          {% if l.image is not "https://www.wg-gesucht.de/img/placeholder/dummy_small.png" %}
-          <img src="{{ l.image }}" class="col-span-4 aspect-square" />
-          {% else %}
-          <div class="{{ randomClass()}} col-span-4 flex">
-            <i class="bi bi-house-fill text-5xl mx-auto my-auto"></i>
-          </div>
-          {% endif %}
-          <div class="col-span-8 flex flex-col justify-between gap-y-2">
-            <div class="flex flex-col">
-              <div class="flex items-center gap-x-1">
-                <i class="bi bi-calendar-event-fill"></i>{{ l.dates }}
-              </div>
-              <div class="flex items-center gap-x-1">
-                <i class="bi bi-geo-fill"></i> {{ l.location }}
-              </div>
-              <div class="flex items-center gap-x-1">
-                <i class="bi bi-currency-euro"></i> {{ l.price }}
-              </div>
-              <div class="flex items-center gap-x-1">
-                <i class="bi bi-rulers"></i> {{ l.square_meters }}
-              </div>
+        </span>
+        <h1
+          class="col-span-12 first-letter:uppercase font-semibold truncate text-sm sm:text-lg text-black dark:text-white">
+          {{ l.name }}
+        </h1>
+        {% if l.image %}
+
+        <img src="{{ l.image }}" class="col-span-4 aspect-square" />
+        {% else %}
+        <div class="{{ randomClass()}} col-span-4 flex">
+          <i class="bi bi-house-fill text-5xl mx-auto my-auto"></i>
+        </div>
+        {% endif %}
+        <div class="col-span-8 flex flex-col justify-between gap-y-2">
+          <div class="flex flex-col">
+            <div class="flex items-center gap-x-1">
+              <i class="bi bi-calendar-event-fill"></i>{{ l.dates }}
+            </div>
+            <div class="flex items-center gap-x-1">
+              <i class="bi bi-geo-fill"></i> {{ l.location }}
+            </div>
+            <div class="flex items-center gap-x-1">
+              <i class="bi bi-currency-euro"></i> {{ l.price }}
+            </div>
+            <div class="flex items-center gap-x-1">
+              <i class="bi bi-rulers"></i> {{ l.square_meters }}
             </div>
           </div>
         </div>
       </div>
-      {% endfor %}
-      <div class="grid grid-cols-2 w-full gap-x-5">
-        <a
-          href="?page={{prevPage}}"
-          class="flex py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-zinc-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-zinc-900 dark:hover:text-white"
-        >
-          <i class="mr-auto bi bi-chevron-left"></i>
-        </a>
+    </div>
+    {% endfor %}
+    <div class="grid grid-cols-2 w-full gap-x-5">
+      <a href="?page={{prevPage}}"
+        class="flex py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-zinc-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-zinc-900 dark:hover:text-white">
+        <i class="mr-auto bi bi-chevron-left"></i>
+      </a>
 
-        <a
-          href="?page={{nextPage}}"
-          class="flex py-2 px-3 leading-tight text-gray-500 bg-white rounded border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-zinc-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-zinc-900 dark:hover:text-white"
-        >
-          <i class="ml-auto bi bi-chevron-right"></i>
-        </a>
-      </div>
-      {% endblock %}
+      <a href="?page={{nextPage}}"
+        class="flex py-2 px-3 leading-tight text-gray-500 bg-white rounded border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-zinc-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-zinc-900 dark:hover:text-white">
+        <i class="ml-auto bi bi-chevron-right"></i>
+      </a>
     </div>
-    <div
-      onclick="toggleTheme()"
-      class="print:hidden shadow-md fixed bottom-2 right-2 bg-gray-100 dark:bg-zinc-900 rounded w-8 h-8 flex justify-center items-center"
-    >
-      <i class="bi bi-circle-half"></i>
-    </div>
-  </body>
+    {% endblock %}
+  </div>
+  <div onclick="toggleTheme()"
+    class="print:hidden shadow-md fixed bottom-2 right-2 bg-gray-100 dark:bg-zinc-900 rounded w-8 h-8 flex justify-center items-center">
+    <i class="bi bi-circle-half"></i>
+  </div>
+</body>
+
 </html>
 <style>
   body {
