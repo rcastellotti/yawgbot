@@ -68,18 +68,18 @@
             </span>
           </span>
           <h1
-            class="col-span-12 first-letter:uppercase font-semibold truncate text-sm sm:text-lg text-black dark:text-white"
+            class="col-span-12  first-letter:uppercase font-semibold truncate text-sm sm:text-lg text-black dark:text-white"
           >
             {{ l.name }}
           </h1>
-          {% if l.image %}
-          <img src="{{ l.image }}" class="col-span-4 aspect-square" />
+          {% if l.image != "https://www.wg-gesucht.de/img/placeholder/dummy_small.png"%}
+          <img src="{{ l.image }}" class="col-span-4 " />
           {% else %}
           <div class="{{ randomClass()}} col-span-4 flex">
             <i class="bi bi-house-fill text-5xl mx-auto my-auto"></i>
           </div>
           {% endif %}
-          <div class="col-span-8 flex flex-col justify-between gap-y-2">
+          <div class="col-span-8 flex flex-col justify-center gap-y-2">
             <div class="flex flex-col">
               <div class="flex items-center gap-x-1">
                 <i class="bi bi-calendar-event-fill"></i>{{ l.dates }}
