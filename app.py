@@ -1,4 +1,4 @@
-from yawgbot import Listing
+from yawgbot.bot import Listing
 from flask import Flask, render_template, request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker, scoped_session
@@ -12,24 +12,21 @@ Session = scoped_session(session_factory)
 
 app = Flask(__name__, template_folder=".")
 
-wes = [
-    "Royal2q0",
-    "Royal2q1",
-    "Royal2q2",
-    "Royal2q3",
-    "Royal2q4",
-    "Zissou1q1",
-    "GrandBudapest2q3",
-    "BottleRocket2q1",
-    "GrandBudapest1q3",
-    "IsleofDogs1q0",
-]
 
-
-def randomClass():
+def random_class():
+    wes = [
+        "Royal2q0",
+        "Royal2q1",
+        "Royal2q2",
+        "Royal2q3",
+        "Royal2q4",
+        "Zissou1q1",
+        "GrandBudapest2q3",
+        "BottleRocket2q1",
+        "GrandBudapest1q3",
+        "IsleofDogs1q0",
+    ]
     return random.choice(wes)
-
-
 
 
 @app.get("/")
@@ -37,10 +34,10 @@ def index():
     page = request.args.get("page")
     if page is None:
         page = 0
-        nextPage = 1
-    page=int(page)
-    nextPage = page + 1
-    prevPage = page - 1
+        next_page = 1
+    page = int(page)
+    next_page = page + 1
+    prev_page = page - 1
     session = Session()
     listings = (
         session.query(Listing)
@@ -54,9 +51,9 @@ def index():
     return render_template(
         "index.html",
         listings=listings,
-        randomClass=randomClass,
-        prevPage=prevPage,
-        nextPage=nextPage,
+        random_class=random_class,
+        prev_page=prev_page,
+        next_page=next_page,
     )
 
 

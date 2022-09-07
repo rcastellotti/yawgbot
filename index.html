@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900"
-      rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900"
+            rel="stylesheet"
     />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>what wg-gesucht should look like</title>
-  </head>
-  <style type="text/tailwindcss">
+</head>
+<style type="text/tailwindcss">
     @layer utilities {
       .dark-bg {
         background: linear-gradient(
@@ -28,8 +28,8 @@
         @apply text-blue-500 dark:text-blue-400 hover:underline hover:bg-blue-200 hover:text-blue-800;
       }
     }
-  </style>
-  <script>
+</style>
+<script>
     if (localStorage.theme === "dark") {
       document.documentElement.classList.add("dark");
     }
@@ -45,83 +45,88 @@
         localStorage.theme = "white";
       }
     }
-  </script>
-  <body
-    class="text-gray-600 dark:text-gray-200 bg-[url('/static/bg.png')] dark:bg-zinc-700"
-  >
-    <div
-      class="my-2 w-full px-2 sm:px-0 sm:w-5/12 2xl:w-3/12 mx-auto flex flex-col gap-y-2"
+</script>
+<body class="text-gray-600 dark:text-gray-300 bg-[url('/static/bg.png')] dark:bg-zinc-700"
+>
+    <div class="my-2 w-full px-2 sm:px-0 sm:w-5/12 2xl:w-3/12 mx-auto flex flex-col gap-y-2"
     >
-      {% block content %} {% for l in listings %}
-      <div
-        class="p-2 group rounded border shadow-md hover:shadow-xl text-xs sm:text-sm bg-neutral-100 hover:bg-neutral-200 text-gray-600 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:text-gray-200 dark:border-zinc-900"
-      >
-        <div class="grid grid-cols-12 gap-x-2">
-          <span class="col-span-12 flex gap-x-1 items-center">
-            <div class="h-4 w-4 bg-orange-400 rounded"></div>
-            <small class="text-gray-400 dark:stone-100">
-              {{ l.added_at }}</small
+    {% block content %}
+        {% for l in listings %}
+            <div class="p-2 group rounded border
+                        text-xs sm:text-sm
+                        shadow-md hover:shadow-xl
+                        bg-neutral-100 dark:bg-zinc-800
+                        hover:bg-neutral-200 dark:hover:bg-zinc-900
+                        border-gray-300 dark:border-zinc-900"
             >
-            <span class="ml-auto">
-              <a class="text-xs" href="{{ l.url }}">#{{ l.wg_id }}</a>
-              <i class="bi bi-three-dots-vertical"></i>
-            </span>
-          </span>
-          <h1
-            class="col-span-12  first-letter:uppercase font-semibold truncate text-sm sm:text-lg text-black dark:text-white"
-          >
-            {{ l.name }}
-          </h1>
-          {% if l.image != "https://www.wg-gesucht.de/img/placeholder/dummy_small.png"%}
-          <img src="{{ l.image }}" class="col-span-4 " />
-          {% else %}
-          <div class="{{ randomClass()}} col-span-4 flex">
-            <i class="bi bi-house-fill text-5xl mx-auto my-auto"></i>
-          </div>
-          {% endif %}
-          <div class="col-span-8 flex flex-col justify-center gap-y-2">
-            <div class="flex flex-col">
-              <div class="flex items-center gap-x-1">
-                <i class="bi bi-calendar-event-fill"></i>{{ l.dates }}
-              </div>
-              <div class="flex items-center gap-x-1">
-                <i class="bi bi-geo-fill"></i> {{ l.location }}
-              </div>
-              <div class="flex items-center gap-x-1">
-                <i class="bi bi-currency-euro"></i> {{ l.price }}
-              </div>
-              <div class="flex items-center gap-x-1">
-                <i class="bi bi-rulers"></i> {{ l.square_meters }}
-              </div>
+                <div class="grid grid-cols-12 gap-x-2">
+                  <span class="col-span-12 flex gap-x-1 items-center">
+                    <a class="rounded" href="{{l.platform}}"><div class="h-4 w-4 bg-[{{l.color}}] hover:bg-opacity-80 rounded"></div></a>
+                    <small class="text-gray-400 dark:stone-100">
+                      {{ l.added_at }}
+                    </small>
+                    <span class="ml-auto">
+                      <a class="text-xs" href="{{ l.url }}">#{{ l.slug }}</a>
+                      <i class="bi bi-three-dots-vertical"></i>
+                    </span>
+                  </span>
+                    <h1 class="col-span-12  first-letter:uppercase font-semibold truncate text-sm sm:text-lg text-black dark:text-white"
+                    >
+                        {{ l.name }}
+                    </h1>
+                    {% if l.image != "https://www.wg-gesucht.de/img/placeholder/dummy_small.png"%}
+                    <img src="{{ l.image }}" class="col-span-4 "/>
+                    {% else %}
+                    <div class="{{ random_class()}} col-span-4 flex">
+                        <i class="bi bi-house-fill text-5xl mx-auto my-auto"></i>
+                    </div>
+                    {% endif %}
+                    <div class="col-span-8 flex flex-col justify-center gap-y-2">
+                        <div class="flex flex-col">
+                            <div class="flex items-center gap-x-1">
+                                <i class="bi bi-calendar-event-fill"></i>{{ l.dates }}
+                            </div>
+                            <div class="flex items-center gap-x-1">
+                                <i class="bi bi-geo-fill"></i> {{ l.location }}
+                            </div>
+                            <div class="flex items-center gap-x-1">
+                                <i class="bi bi-currency-euro"></i> {{ l.price }}
+                            </div>
+                            <div class="flex items-center gap-x-1">
+                                <i class="bi bi-rulers"></i> {{ l.size }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-      <div class="grid grid-cols-2 w-full gap-x-5">
-        <a
-          href="?page={{prevPage}}"
-          class="flex py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-zinc-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-zinc-900 dark:hover:text-white"
+        {% endfor %}
+    <div class="grid grid-cols-2 w-full gap-x-5">
+        <a href="?page={{prev_page}}"
+           class="py-2 px-3 rounded border
+                bg-neutral-100 dark:bg-zinc-800
+                hover:bg-neutral-200 dark:hover:bg-zinc-900
+                border-gray-300 dark:border-zinc-900"
         >
-          <i class="mr-auto bi bi-chevron-left"></i>
+            <i class="bi bi-chevron-left"></i>
         </a>
 
-        <a
-          href="?page={{nextPage}}"
-          class="flex py-2 px-3 leading-tight text-gray-500 bg-white rounded border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-zinc-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-zinc-900 dark:hover:text-white"
+        <a href="?page={{next_page}}"
+            class="flex py-2 px-3 rounded border
+                bg-neutral-100 dark:bg-zinc-800
+                hover:bg-neutral-200 dark:hover:bg-zinc-900
+                border-gray-300 dark:border-zinc-900"
         >
-          <i class="ml-auto bi bi-chevron-right"></i>
+            <i class="ml-auto bi bi-chevron-right"></i>
         </a>
-      </div>
-      {% endblock %}
     </div>
-    <div
-      onclick="toggleTheme()"
-      class="print:hidden shadow-md fixed bottom-2 right-2 bg-gray-100 dark:bg-zinc-900 rounded w-8 h-8 flex justify-center items-center"
-    >
-      <i class="bi bi-circle-half"></i>
-    </div>
-  </body>
+    {% endblock %}
+</div>
+<div onclick="toggleTheme()"
+     class="shadow-md fixed bottom-2 right-2 bg-gray-100 dark:bg-zinc-900 rounded w-8 h-8 flex justify-center items-center"
+>
+    <i class="bi bi-circle-half"></i>
+</div>
+</body>
 </html>
 <style>
   body {
