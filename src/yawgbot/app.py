@@ -1,11 +1,15 @@
 from yawgbot.bot import Listing
-from flask import Flask, render_template, request
+from flask import request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker, scoped_session
 import random
+import os
 from flask import Flask, render_template
+from platformdirs import user_data_dir
 
-engine = create_engine("sqlite:///yawgbot.sqlite", echo=False)
+db_uri = f"{user_data_dir('yawgbot', 'rcastellotti')}/yawgbot.sqlite"
+
+engine = create_engine(f"sqlite:///{db_uri}", echo=False)
 Base = declarative_base()
 session_factory = sessionmaker(bind=engine)
 Session = scoped_session(session_factory)
@@ -55,6 +59,10 @@ def index():
         prev_page=prev_page,
         next_page=next_page,
     )
+
+
+def run():
+    app.run(host="0.0.0.0")
 
 
 if __name__ == "__main__":

@@ -2,12 +2,15 @@ from abc import ABCMeta, abstractmethod
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 from typing import List
+from platformdirs import user_data_dir
+
+db_uri = f"{user_data_dir('yawgbot', 'rcastellotti')}/yawgbot.sqlite"
 
 
 class PluginBase(metaclass=ABCMeta):
     """Base class for plugins"""
 
-    engine = create_engine("sqlite:///yawgbot.sqlite", echo=False)
+    engine = create_engine(f"sqlite:///{db_uri}", echo=False)
     Base = declarative_base()
     Session = sessionmaker(bind=engine)
 

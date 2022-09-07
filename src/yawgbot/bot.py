@@ -6,9 +6,11 @@ import datetime
 from sqlalchemy_utils import database_exists
 import importlib
 from yawgbot.pluginBase import PluginBase
+from platformdirs import user_data_dir
 
 load_dotenv()
-engine = create_engine("sqlite:///yawgbot.sqlite", echo=False)
+db_uri = f"{user_data_dir('yawgbot', 'rcastellotti')}/yawgbot.sqlite"
+engine = create_engine(f"sqlite:///{db_uri}", echo=False)
 Base = declarative_base()
 
 
@@ -42,7 +44,8 @@ class Bot:
                 if isinstance(plugin_to_add, PluginBase):
                     self._platforms.append(plugin_to_add)
 
-        if not database_exists("sqlite:///test.sqlite"):
+        os.makedirs(user_data_dir("yawgbot", "rcastellotti"), exist_ok=True)
+        if not database_exists(f"sqlite:///{db_uri}"):
             Base.metadata.create_all(engine)
 
     def run(self):

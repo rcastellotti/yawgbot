@@ -74,7 +74,7 @@
                     >
                         {{ l.name }}
                     </h1>
-                    {% if l.image != "https://www.wg-gesucht.de/img/placeholder/dummy_small.png"%}
+                    {% if l.image is not none %}
                     <img src="{{ l.image }}" class="col-span-4 "/>
                     {% else %}
                     <div class="{{ random_class()}} col-span-4 flex">

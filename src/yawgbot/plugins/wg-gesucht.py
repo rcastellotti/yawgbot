@@ -16,6 +16,7 @@ class YawgbotPlugin(PluginBase):
     WG_GESUCHT_TEMPLATE_MESSAGE = os.environ["WG_GESUCHT_TEMPLATE_MESSAGE"]
     COLOR = "#f97316"
     PLATFORM = "https://www.wg-gesucht.de/"
+    BASE_URL = "https://www.wg-gesucht.de/wg-zimmer-und-1-zimmer-wohnungen-in-Munchen.90.0+1.1.{}.html"
 
     def __init__(self):
         self.s = requests.Session()
@@ -49,7 +50,7 @@ class YawgbotPlugin(PluginBase):
             .text.replace("\n", "")
             .replace(" ", "")
         )
-        location = location_string[location_string.find("|") + 1:].replace("|", " | ")
+        location = location_string[location_string.find("|") + 1 :].replace("|", " | ")
         image = re.findall(
             self.IMG_REGEX, str(ad.find(attrs={"class": "card_image"}).find("a"))
         )[0]
@@ -64,7 +65,7 @@ class YawgbotPlugin(PluginBase):
             dates=dates,
             price=price,
             platform=self.PLATFORM,
-            color=self.COLOR
+            color=self.COLOR,
         )
         session = self.Session()
 
@@ -100,9 +101,8 @@ class YawgbotPlugin(PluginBase):
         pass
 
     def run(self):
-        ads = self.get_ads(
-            url="https://www.wg-gesucht.de/wg-zimmer-und-1-zimmer-wohnungen-in-Munchen.90.0+1.1.0.html"
-        )
-        logging.debug(ads)
-        for ad in ads:
-            self.create_listing(ad)
+        for i in range(5):
+            ads = self.get_ads(self.BASE_URL.format(i))
+            logging.debug(ads)
+            for ad in ads:
+                self.create_listing(ad)
