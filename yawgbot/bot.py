@@ -24,6 +24,8 @@ class Listing(Base):
     location = Column(String)
     size = Column(String)
     dates = Column(String)
+    color = Column(String)
+    platform = Column(String)
 
 
 class Bot:

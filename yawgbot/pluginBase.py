@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
+from typing import List
 
 
 class PluginBase(metaclass=ABCMeta):
@@ -11,15 +12,15 @@ class PluginBase(metaclass=ABCMeta):
     Session = sessionmaker(bind=engine)
 
     @abstractmethod
-    def contact_ad(self):
+    def contact_ad(self) -> None:
         """this method should contact the ad"""
 
     @abstractmethod
-    def get_ads(self, url):
+    def get_ads(self, url) -> List[str]:
         """this method should scrape a platform and return the HTML containing all the ads"""
 
     @abstractmethod
-    def create_listing(self, ad):
+    def create_listing(self, ad) -> None:
         """this method should extract relevant information from an ad (an element of the list returned by getAds)"""
 
     @abstractmethod

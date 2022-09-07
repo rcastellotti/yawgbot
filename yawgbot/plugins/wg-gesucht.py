@@ -14,6 +14,8 @@ class YawgbotPlugin(PluginBase):
     WG_GESUCHT_USERNAME = os.environ["WG_GESUCHT_USERNAME"]
     WG_GESUCHT_PASSWORD = os.environ["WG_GESUCHT_PASSWORD"]
     WG_GESUCHT_TEMPLATE_MESSAGE = os.environ["WG_GESUCHT_TEMPLATE_MESSAGE"]
+    COLOR = "#f97316"
+    PLATFORM = "https://www.wg-gesucht.de/"
 
     def __init__(self):
         self.s = requests.Session()
@@ -47,7 +49,7 @@ class YawgbotPlugin(PluginBase):
             .text.replace("\n", "")
             .replace(" ", "")
         )
-        location = location_string[location_string.find("|") + 1 :].replace("|", " | ")
+        location = location_string[location_string.find("|") + 1:].replace("|", " | ")
         image = re.findall(
             self.IMG_REGEX, str(ad.find(attrs={"class": "card_image"}).find("a"))
         )[0]
@@ -61,6 +63,8 @@ class YawgbotPlugin(PluginBase):
             image=image,
             dates=dates,
             price=price,
+            platform=self.PLATFORM,
+            color=self.COLOR
         )
         session = self.Session()
 
