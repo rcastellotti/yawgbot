@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 import logging
 from yawgbot.pluginBase import PluginBase
-from yawgbot.yawgbot import Listing
+from yawgbot.bot import Listing
 import re
 import os
 import json
@@ -28,14 +28,14 @@ class YawgbotPlugin(PluginBase):
         self.user_id = json.loads(r.text)["user_id"]
         logging.debug(r.text)
 
-    def getAds(self, url):
+    def get_ads(self, url):
         r = requests.get(url)
         soup = bs(r.text, "html.parser")
         logging.debug(soup.prettify())
         ads = soup.select(".wgg_card:not(.noprint)")
         return ads
 
-    def createListing(self, ad):
+    def create_listing(self, ad):
         url = "https://www.wg-gesucht.de" + ad.find_all("a")[1]["href"]
         name = ad.find_all("a")[1].text.strip()
         slug = re.findall(self.ID_REGEX, url)[0]
@@ -67,12 +67,12 @@ class YawgbotPlugin(PluginBase):
         if not session.query(Listing).filter_by(slug=listing.slug).first():
             logging.info(f"new ad found: {listing.name}")
             session.add(listing)
-            self.contactAd(listing.slug)
+            self.contact_ad(listing.slug)
             session.commit()
         else:
             logging.info(f"skipping ad:{listing.name}")
 
-    def contactAd(self, slug):
+    def contact_ad(self, slug):
 
         json_data = {
             "user_id": self.user_id,
@@ -96,9 +96,9 @@ class YawgbotPlugin(PluginBase):
         pass
 
     def run(self):
-        ads = self.getAds(
+        ads = self.get_ads(
             url="https://www.wg-gesucht.de/wg-zimmer-und-1-zimmer-wohnungen-in-Munchen.90.0+1.1.0.html"
         )
         logging.debug(ads)
         for ad in ads:
-            self.createListing(ad)
+            self.create_listing(ad)

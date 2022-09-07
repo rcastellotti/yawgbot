@@ -32,13 +32,13 @@ class Bot:
 
     def __init__(self, platforms: list = []):
         self._platforms = []
-        if platforms != []:
+        if platforms:
             for plugin in platforms:
-                pluginToAdd = importlib.import_module(
+                plugin_to_add = importlib.import_module(
                     f"yawgbot.plugins.{plugin}"
                 ).YawgbotPlugin()
-                if isinstance(pluginToAdd, PluginBase):
-                    self._platforms.append(pluginToAdd)
+                if isinstance(plugin_to_add, PluginBase):
+                    self._platforms.append(plugin_to_add)
 
         if not database_exists("sqlite:///test.sqlite"):
             Base.metadata.create_all(engine)

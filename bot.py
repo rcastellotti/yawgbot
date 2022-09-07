@@ -1,4 +1,4 @@
-from yawgbot.yawgbot import Bot
+from yawgbot.bot import Bot
 
 from celery import Celery
 

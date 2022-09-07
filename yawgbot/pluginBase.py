@@ -11,16 +11,20 @@ class PluginBase(metaclass=ABCMeta):
     Session = sessionmaker(bind=engine)
 
     @abstractmethod
-    def contactAd(self) -> None:
+    def contact_ad(self):
         """this method should contact the ad"""
 
     @abstractmethod
-    def getAds(self, url) -> None:
-        "this method should scrape a platform and return the HTML containing all the ads"
+    def get_ads(self, url):
+        """this method should scrape a platform and return the HTML containing all the ads"""
 
     @abstractmethod
-    def createListing(self, ad):
-        "this method should extract relevant information from an ad (an element of the list returned by getAds)"
+    def create_listing(self, ad):
+        """this method should extract relevant information from an ad (an element of the list returned by getAds)"""
+
+    @abstractmethod
+    def run(self):
+        """this method runs the plugin"""
 
     # metodo che notifica
     # inventarsi qualcosa per assegnare alla piattaforma un colore ``
