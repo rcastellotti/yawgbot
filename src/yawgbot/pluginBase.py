@@ -3,6 +3,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 from typing import List
 from platformdirs import user_data_dir
+from yawgbot.listing import Listing
+import logging
 
 db_uri = f"{user_data_dir('yawgbot', 'rcastellotti')}/yawgbot.sqlite"
 
@@ -23,8 +25,20 @@ class PluginBase(metaclass=ABCMeta):
         """this method should scrape a platform and return the HTML containing all the ads"""
 
     @abstractmethod
-    def create_listing(self, ad) -> None:
-        """this method should extract relevant information from an ad (an element of the list returned by getAds)"""
+    def parse_ad(self, ad) -> Listing:
+        """this method should parse an ad and return the data needed to create the listing"""
+
+    # @abstractmethod
+    def create_listing(self, listing: Listing) -> None:
+        session = self.Session()
+
+        if not session.query(Listing).filter_by(slug=listing.slug).first():
+            logging.info(f"new ad found: {listing.name}")
+            session.add(listing)
+            self.contact_ad(listing.slug)
+            session.commit()
+        else:
+            logging.info(f"skipping ad:{listing.name}")
 
     @abstractmethod
     def run(self):

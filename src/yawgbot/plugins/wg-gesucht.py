@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 import logging
 from yawgbot.pluginBase import PluginBase
-from yawgbot.bot import Listing
+from yawgbot.listing import Listing
 import re
 import os
 import json
@@ -38,7 +38,7 @@ class YawgbotPlugin(PluginBase):
         ads = soup.select(".wgg_card:not(.noprint)")
         return ads
 
-    def create_listing(self, ad):
+    def parse_ad(self, ad):
         url = "https://www.wg-gesucht.de" + ad.find_all("a")[1]["href"]
         name = ad.find_all("a")[1].text.strip()
         slug = re.findall(self.ID_REGEX, url)[0]
@@ -67,18 +67,9 @@ class YawgbotPlugin(PluginBase):
             platform=self.PLATFORM,
             color=self.COLOR,
         )
-        session = self.Session()
-
-        if not session.query(Listing).filter_by(slug=listing.slug).first():
-            logging.info(f"new ad found: {listing.name}")
-            session.add(listing)
-            self.contact_ad(listing.slug)
-            session.commit()
-        else:
-            logging.info(f"skipping ad:{listing.name}")
+        return listing
 
     def contact_ad(self, slug):
-
         json_data = {
             "user_id": self.user_id,
             "csrf_token": self.csrf_token,
@@ -105,4 +96,5 @@ class YawgbotPlugin(PluginBase):
             ads = self.get_ads(self.WG_GESUCHT_BASE_URL.format(i))
             logging.debug(ads)
             for ad in ads:
-                self.create_listing(ad)
+                listing = self.parse_ad(ad)
+                self.create_listing(listing)

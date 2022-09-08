@@ -1,8 +1,7 @@
 import os
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, Column, Integer, String, DateTime
+from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base
-import datetime
 from sqlalchemy_utils import database_exists
 import importlib
 from yawgbot.pluginBase import PluginBase
@@ -12,22 +11,6 @@ load_dotenv()
 db_uri = f"{user_data_dir('yawgbot', 'rcastellotti')}/yawgbot.sqlite"
 engine = create_engine(f"sqlite:///{db_uri}", echo=False)
 Base = declarative_base()
-
-
-class Listing(Base):
-    __tablename__ = "listings"
-    id = Column(Integer, primary_key=True)
-    slug = Column(Integer, nullable=False)
-    added_at = Column(DateTime, default=datetime.datetime.now)
-    price = Column(Integer)
-    name = Column(String)
-    url = Column(String)
-    image = Column(String)
-    location = Column(String)
-    size = Column(String)
-    dates = Column(String)
-    color = Column(String)
-    platform = Column(String)
 
 
 class Bot:
