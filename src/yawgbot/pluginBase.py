@@ -44,8 +44,5 @@ class PluginBase(metaclass=ABCMeta):
     def run(self):
         """this method runs the plugin"""
 
-    # metodo che notifica
-    # inventarsi qualcosa per assegnare alla piattaforma un colore ``
     # ogni plugin deve occuparsi di definire la condizione "ho trovato una immagine buona"
     # voglio che tutto sia typato
-    # cambiare gli hover dei bottoni giu in basso
