@@ -84,6 +84,7 @@ To better understand plugins you can read the code in [`src/yawgbot/plugins`](ht
 
 ### wg-gesucht
 
+#### config 
 ```yml
 wg-gesucht:
   username: ""
@@ -92,7 +93,4 @@ wg-gesucht:
   base_url: ""
 ```
 
-When configuring for use go on [https://wg-gesucht.de](https://wg-gesucht.de) and copy the url you are using to look for
-accommodation, then replace the last number with `{}` in order to be able to search across multiple pages, for example,
-if looking for apartments in Munich: base url is `https://www.wg-gesucht.de/1-zimmer-wohnungen-in-Munchen.90.1.1.1.html`
-, replace the last `1` as follows: `https://www.wg-gesucht.de/1-zimmer-wohnungen-in-Munchen.90.1.1.{}.html`
+When configuring for use go on [https://wg-gesucht.de](https://wg-gesucht.de) and copy the url you are using to look for accommodation, then replace the last number with `{}` in order to be able to search across multiple pages, for example, if looking for apartments in Munich: base url is `https://www.wg-gesucht.de/1-zimmer-wohnungen-in-Munchen.90.1.1.1.html` , replace the last `1` as follows: `https://www.wg-gesucht.de/1-zimmer-wohnungen-in-Munchen.90.1.1.{}.html`
