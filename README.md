@@ -60,6 +60,14 @@ To start the web UI simply run `yawgbot-web`
 
 ## wg-gesucht specific
 
+```yml
+# config.yml
+wg-gesucht:
+  username: ""
+  password: ""
+  message_template: ""
+  base_url: ""
+```
 When configuring for use go on [https://wg-gesucht.de](https://wg-gesucht.de) and copy the url you are using to look for
 accommodation, then replace the last number with `{}` in order to be able to search across multiple pages, for example,
 if looking for apartments in Munich: base url is `https://www.wg-gesucht.de/1-zimmer-wohnungen-in-Munchen.90.1.1.1.html`
