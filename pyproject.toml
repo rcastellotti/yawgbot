@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "yawgbot"
-version = "0.0.3"
+version = "0.0.4"
 authors = [
     { name = "Roberto Castellotti", email = "me@rcastellotti.dev" },
 ]
@@ -30,6 +30,7 @@ dependencies = [
     "MarkupSafe==2.1.1",
     "platformdirs==2.5.2",
     "python-dotenv==0.21.0",
+    "PyYAML==6.0",
     "requests==2.28.1",
     "soupsieve==2.3.2.post1",
     "SQLAlchemy==1.4.41",

@@ -10,6 +10,10 @@ plugin-based system ready to be extended for every platform to find accommodatio
 `yawgbot` is a simple python bot that scrapes websites offering accommodation ads and contacts landlords. It uses a
 SQLite database to save contacted ads and to perform fewer requests to platforms. It also offers a simple web UI to
 track your progress and gather your findings across different platforms.
+The database is:
++ on GNU/Linux: `~/.local/share/yawgbot/yawgbot.sqlite`
++ on Windows: `%USERPROFILE%\AppData\Local\rcastellotti\yawgbot\yawgbot.sqlite`
++ on macOS: `~/Library/Application Support/yawgbot/yawgbot.sqlite`
 
 ## running manually
 
@@ -17,7 +21,10 @@ To run the bot manually:
 
 + install the package with `pip3 install yawgbot` (a [virtual environment](https://docs.python.org/3/tutorial/venv.html)
   is suggested)
-+ configure `.env.sample` and rename it to `.env`
++ configure `.config.myl`
+    + on GNU/Linux: `~/.config/yawgbot/config.yml`
+    + on Windows: `%USERPROFILE%\AppData\Local\rcastellotti\yawgbot\config.yml`
+    + on macOS: `~/Library/Preferences/yawgbot/config.yml`
 + create a new file named `bot.py` with the following content and run it:
 
 ```python
@@ -25,8 +32,7 @@ from yawgbot import Bot
 import logging
 
 logging.basicConfig(level=logging.INFO)
-
-bot = Bot(platfors=["wg-gesucht"])
+bot = Bot(platforms=["wg-gesucht"])
 bot.run()
 ```
 
@@ -51,7 +57,8 @@ To start the web UI simply run `yawgbot-web`
 Extending `yawgbot` is a pretty straightforward process. A plugin is a simple module extending the `PluginBase` class,
 an example is [`wg-gesucht.py`](https://github.com/rcastellotti/yawgbot/blob/master/src/yawgbot/plugins/wg-gesucht.py),
 supported plugins can be used just by instantiating `Bot` with the `platforms` argument. Custom plugins can be
-registered using the `Bot.register_plugin()` method. To start creating a template you can use this boilerplate code:
+registered using the `Bot.register_plugin()` method.  
+To start creating a template you can use this boilerplate code:
 
 ```python3
 from yawgbot.pluginBase import PluginBase
@@ -76,6 +83,8 @@ class YawgbotPlugin(PluginBase):
 
 If you develop a plugin, consider creating a PR, I will be more than happy to work with you to make it an official
 plugin and ship it with `yawgbot`.
+
+Each plugin should specify the values needed for the configuration file stored in
 
 ### wg-gesucht
 

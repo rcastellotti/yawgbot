@@ -20,11 +20,9 @@ Base = declarative_base()
 class Bot:
     @staticmethod
     def config():
-        with open(config_uri, "r") as f:
+        with open(config_uri, "r+") as f:
             data = yaml.safe_load(f)
         return data
-
-    # qua raisare un issue se il file non esiste o non e' valido
 
     def register_plugin(self, plugin):
         plugin_to_add = importlib.import_module(plugin).YawgbotPlugin()

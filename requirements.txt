@@ -17,5 +17,5 @@ SQLAlchemy-Utils==0.38.3
 urllib3==1.26.12
 Werkzeug==2.2.2
 
-PyYAML~=6.0
+PyYAML==6.0
 celery~=5.2.7

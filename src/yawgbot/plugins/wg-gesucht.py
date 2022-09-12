@@ -95,6 +95,7 @@ class YawgbotPlugin(PluginBase):
         pass
 
     def run(self):
+        logging.info("running wg-gesucht plugin")
         for i in range(5):
             ads = self.get_ads(self.base_url.format(i))
             logging.debug(ads)
