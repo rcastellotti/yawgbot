@@ -95,10 +95,9 @@ class YawgbotPlugin(PluginBase):
         pass
 
     def run(self):
-        # for i in range(5):
-        #     ads = self.get_ads(self.base_url.format(i))
-        #     logging.debug(ads)
-        #     for ad in ads:
-        #         listing = self.parse_ad(ad)
-        #         self.create_listing(listing)
-        print("siamo wggesucht")
+        for i in range(5):
+            ads = self.get_ads(self.base_url.format(i))
+            logging.debug(ads)
+            for ad in ads:
+                listing = self.parse_ad(ad)
+                self.create_listing(listing)

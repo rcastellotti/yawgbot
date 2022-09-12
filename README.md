@@ -11,20 +11,6 @@ plugin-based system ready to be extended for every platform to find accommodatio
 SQLite database to save contacted ads and to perform fewer requests to platforms. It also offers a simple web UI to
 track your progress and gather your findings across different platforms.
 
-[//]: # (## configuration)
-
-[//]: # ()
-
-[//]: # (## creating a plugin)
-
-[//]: # ()
-
-[//]: # (## running periodically)
-
-[//]: # ()
-
-[//]: # (## instructions)
-
 ## running manually
 
 To run the bot manually:
@@ -46,8 +32,8 @@ bot.run()
 
 ## running periodically with celery
 
-Yawgbot uses [Celery](https://docs.celeryq.dev/en/stable/) to schedule tasks. It is
-configured to use [SQLite](https://sqlite.org) as
+Yawgbot uses [Celery](https://docs.celeryq.dev/en/stable/) to schedule tasks. It is configured to
+use [SQLite](https://sqlite.org) as
 both [backend and broker](https://docs.celeryq.dev/en/stable/getting-started/backends-and-brokers/index.html), to know
 more read the docs. The file `run_yawgbot.py` is provided to run the bot each 5 minutes, to use it:
 
@@ -58,16 +44,49 @@ more read the docs. The file `run_yawgbot.py` is provided to run the bot each 5 
 
 To start the web UI simply run `yawgbot-web`
 
-## wg-gesucht specific
+## plugins
+
+### creating a plugin
+
+Extending `yawgbot` is a pretty straightforward process. A plugin is a simple module extending the `PluginBase` class,
+an example is [`wg-gesucht.py`](https://github.com/rcastellotti/yawgbot/blob/master/src/yawgbot/plugins/wg-gesucht.py),
+supported plugins can be used just by instantiating `Bot` with the `platforms` argument. Custom plugins can be
+registered using the `Bot.register_plugin()` method. To start creating a template you can use this boilerplate code:
+
+```python3
+from yawgbot.pluginBase import PluginBase
+
+
+class YawgbotPlugin(PluginBase):
+    def __init__(self):
+        pass
+
+    def get_ads(self, url):
+        pass
+
+    def parse_ad(self, ad):
+        pass
+
+    def contact_ad(self, slug):
+        pass
+
+    def run(self):
+        pass
+```
+
+If you develop a plugin, consider creating a PR, I will be more than happy to work with you to make it an official
+plugin and ship it with `yawgbot`.
+
+### wg-gesucht
 
 ```yml
-# config.yml
 wg-gesucht:
   username: ""
   password: ""
   message_template: ""
   base_url: ""
 ```
+
 When configuring for use go on [https://wg-gesucht.de](https://wg-gesucht.de) and copy the url you are using to look for
 accommodation, then replace the last number with `{}` in order to be able to search across multiple pages, for example,
 if looking for apartments in Munich: base url is `https://www.wg-gesucht.de/1-zimmer-wohnungen-in-Munchen.90.1.1.1.html`

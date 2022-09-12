@@ -26,6 +26,10 @@ class Bot:
 
     # qua raisare un issue se il file non esiste o non e' valido
 
+    def register_plugin(self, plugin):
+        plugin_to_add = importlib.import_module(plugin).YawgbotPlugin()
+        self._platforms.append(plugin_to_add)
+
     def __init__(self, platforms: list = []):
         self._platforms = []
         if platforms:
