@@ -3,30 +3,33 @@ from bs4 import BeautifulSoup as bs
 import logging
 from yawgbot.pluginBase import PluginBase
 from yawgbot.listing import Listing
+from yawgbot.bot import Bot
 import re
-import os
 import json
+import sys
 
 
 class YawgbotPlugin(PluginBase):
     ID_REGEX = r"\.(\d*)\.html"
     IMG_REGEX = r"\(([^\)]+)\)"
-    WG_GESUCHT_USERNAME = os.environ["WG_GESUCHT_USERNAME"]
-    WG_GESUCHT_PASSWORD = os.environ["WG_GESUCHT_PASSWORD"]
-    WG_GESUCHT_TEMPLATE_MESSAGE = os.environ["WG_GESUCHT_TEMPLATE_MESSAGE"]
     COLOR = "#f97316"
     PLATFORM = "https://www.wg-gesucht.de/"
-    WG_GESUCHT_BASE_URL = os.environ["WG_GESUCHT_BASE_URL"]
 
     def __init__(self):
+        config = Bot.config()["wg-gesucht"]
+        self.username = config["username"]
+        self.password = config["password"]
+        self.base_url = config["base_url"]
+        self.message_template = config["message_template"]
         self.s = requests.Session()
         r = self.s.post(
             "https://www.wg-gesucht.de/ajax/sessions.php?action=login",
             json={
-                "login_email_username": self.WG_GESUCHT_USERNAME,
-                "login_password": self.WG_GESUCHT_PASSWORD,
+                "login_email_username": self.username,
+                "login_password": self.password,
             },
         )
+
         self.csrf_token = json.loads(r.text)["csrf_token"]
         self.user_id = json.loads(r.text)["user_id"]
         logging.debug(r.text)
@@ -75,7 +78,7 @@ class YawgbotPlugin(PluginBase):
             "csrf_token": self.csrf_token,
             "messages": [
                 {
-                    "content": self.WG_GESUCHT_TEMPLATE_MESSAGE,
+                    "content": self.message_template,
                     "message_type": "text",
                 },
             ],
@@ -92,9 +95,10 @@ class YawgbotPlugin(PluginBase):
         pass
 
     def run(self):
-        for i in range(5):
-            ads = self.get_ads(self.WG_GESUCHT_BASE_URL.format(i))
-            logging.debug(ads)
-            for ad in ads:
-                listing = self.parse_ad(ad)
-                self.create_listing(listing)
+        # for i in range(5):
+        #     ads = self.get_ads(self.base_url.format(i))
+        #     logging.debug(ads)
+        #     for ad in ads:
+        #         listing = self.parse_ad(ad)
+        #         self.create_listing(listing)
+        print("siamo wggesucht")
