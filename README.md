@@ -11,7 +11,7 @@ plugin-based system ready to be extended for every platform to find accommodatio
 From a technical standpoint `yawgbot` is a simple tool that runs different plugins. A plugin either scrapes websites using [requests](https://requests.readthedocs.io/en/latest/) and [beautifulsoup4](https://beautiful-soup-4.readthedocs.io/en/latest/) or uses APIs (both public and undocumented) both to search for listings and to contact landlords. It uses a SQLite database to save contacted ads and to perform fewer requests to platforms. It also comes with a simple web UI to track your progress and gather your findings across different platforms.  
 The database is stored:
 
-+ on GNU/Linux at`~/.local/share/yawgbot/yawgbot.sqlite`
++ on GNU/Linux at `~/.local/share/yawgbot/yawgbot.sqlite`
 + on Windows at `%USERPROFILE%\AppData\Local\rcastellotti\yawgbot\yawgbot.sqlite`
 + on macOS at `~/Library/Application Support/yawgbot/yawgbot.sqlite`
 
