@@ -17,51 +17,46 @@
 </head>
 <style type="text/tailwindcss">
     @layer utilities {
-      .dark-bg {
-        background: linear-gradient(
-            rgba(255, 255, 255, 0.4),
-            rgba(255, 255, 255, 0.4)
-          ),
-          url("/static/bg-dark.png");
-      }
-      a {
-        @apply text-blue-500 dark:text-blue-400 hover:underline hover:bg-blue-200 hover:text-blue-800;
-      }
+        a {
+            @apply text-blue-500 dark:text-blue-400 hover:underline hover:bg-blue-200 hover:text-blue-800;
+        }
     }
 </style>
-<script>
-    if (localStorage.theme === "dark") {
-      document.documentElement.classList.add("dark");
-    }
-    tailwind.config = {
-      darkMode: "class",
-    };
-    function toggleTheme() {
-      if (localStorage.theme !== "dark") {
+<script>dark - bg
+if (localStorage.theme === "dark") {
+    document.documentElement.classList.add("dark");
+}
+tailwind.config = {
+    darkMode: "class",
+};
+
+function toggleTheme() {
+    if (localStorage.theme !== "dark") {
         document.documentElement.classList.add("dark");
         localStorage.theme = "dark";
-      } else {
+    } else {
         document.documentElement.classList.remove("dark");
         localStorage.theme = "white";
-      }
     }
+}
 </script>
 <body class="text-gray-600 dark:text-gray-300 bg-[url('/static/bg.png')] dark:bg-zinc-700"
 >
-    <div class="my-2 w-full px-2 sm:px-0 sm:w-5/12 2xl:w-3/12 mx-auto flex flex-col gap-y-2"
-    >
+<div class="my-2 w-full px-2 sm:px-0 sm:w-5/12 2xl:w-3/12 mx-auto flex flex-col gap-y-2"
+>
     {% block content %}
-        {% for l in listings %}
-            <div class="p-2 group rounded border
+    {% for l in listings %}
+    <div class="p-2 group rounded border
                         text-xs sm:text-sm
                         shadow-md hover:shadow-xl
                         bg-neutral-100 dark:bg-zinc-800
                         hover:bg-neutral-200 dark:hover:bg-zinc-900
                         border-gray-300 dark:border-zinc-900"
-            >
-                <div class="grid grid-cols-12 gap-x-2">
+    >
+        <div class="grid grid-cols-12 gap-x-2">
                   <span class="col-span-12 flex gap-x-1 items-center">
-                    <a class="rounded" href="{{l.platform}}"><div class="h-4 w-4 bg-[{{l.color}}] hover:bg-opacity-80 rounded"></div></a>
+                    <a class="rounded" href="{{l.platform}}"><div
+                            class="h-4 w-4 bg-[{{l.color}}] hover:bg-opacity-80 rounded"></div></a>
                     <small class="text-gray-400 dark:stone-100">
                       {{ l.added_at }}
                     </small>
@@ -70,36 +65,36 @@
                       <i class="bi bi-three-dots-vertical"></i>
                     </span>
                   </span>
-                    <h1 class="col-span-12  first-letter:uppercase font-semibold truncate text-sm sm:text-lg text-black dark:text-white"
-                    >
-                        {{ l.name }}
-                    </h1>
-                    {% if l.image is not none %}
-                    <img src="{{ l.image }}" class="col-span-4 "/>
-                    {% else %}
-                    <div class="{{ random_class()}} col-span-4 flex">
-                        <i class="bi bi-house-fill text-5xl mx-auto my-auto"></i>
+            <h1 class="col-span-12  first-letter:uppercase font-semibold truncate text-sm sm:text-lg text-black dark:text-white"
+            >
+                {{ l.name }}
+            </h1>
+            {% if l.image is not none %}
+            <img src="{{ l.image }}" class="col-span-4 "/>
+            {% else %}
+            <div class=" col-span-4 flex w-full">
+                <i class="bi bi-house-fill text-5xl mx-auto my-auto"></i>
+            </div>
+            {% endif %}
+            <div class="col-span-8 flex flex-col justify-center gap-y-2">
+                <div class="flex flex-col">
+                    <div class="flex items-center gap-x-1">
+                        <i class="bi bi-calendar-event-fill"></i>{{ l.dates }}
                     </div>
-                    {% endif %}
-                    <div class="col-span-8 flex flex-col justify-center gap-y-2">
-                        <div class="flex flex-col">
-                            <div class="flex items-center gap-x-1">
-                                <i class="bi bi-calendar-event-fill"></i>{{ l.dates }}
-                            </div>
-                            <div class="flex items-center gap-x-1">
-                                <i class="bi bi-geo-fill"></i> {{ l.location }}
-                            </div>
-                            <div class="flex items-center gap-x-1">
-                                <i class="bi bi-currency-euro"></i> {{ l.price }}
-                            </div>
-                            <div class="flex items-center gap-x-1">
-                                <i class="bi bi-rulers"></i> {{ l.size }}
-                            </div>
-                        </div>
+                    <div class="flex items-center gap-x-1">
+                        <i class="bi bi-geo-fill"></i> {{ l.location }}
+                    </div>
+                    <div class="flex items-center gap-x-1">
+                        <i class="bi bi-currency-euro"></i> {{ l.price }}
+                    </div>
+                    <div class="flex items-center gap-x-1">
+                        <i class="bi bi-rulers"></i> {{ l.size }}
                     </div>
                 </div>
             </div>
-        {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
     <div class="grid grid-cols-2 w-full gap-x-5">
         <a href="?page={{prev_page}}"
            class="py-2 px-3 rounded border
@@ -111,7 +106,7 @@
         </a>
 
         <a href="?page={{next_page}}"
-            class="flex py-2 px-3 rounded border
+           class="flex py-2 px-3 rounded border
                 bg-neutral-100 dark:bg-zinc-800
                 hover:bg-neutral-200 dark:hover:bg-zinc-900
                 border-gray-300 dark:border-zinc-900"
@@ -129,47 +124,47 @@
 </body>
 </html>
 <style>
-  body {
-    font-family: "Barlow";
-  }
+    body {
+        font-family: "Barlow";
+    }
 
-  .Royal2q0 {
-    background-color: rgb(154, 136, 34);
-  }
+    .Royal2q0 {
+        background-color: rgb(154, 136, 34);
+    }
 
-  .Royal2q1 {
-    background-color: rgb(245, 205, 180);
-  }
+    .Royal2q1 {
+        background-color: rgb(245, 205, 180);
+    }
 
-  .Royal2q2 {
-    background-color: rgb(248, 175, 168);
-  }
+    .Royal2q2 {
+        background-color: rgb(248, 175, 168);
+    }
 
-  .Royal2q3 {
-    background-color: rgb(253, 221, 160);
-  }
+    .Royal2q3 {
+        background-color: rgb(253, 221, 160);
+    }
 
-  .Royal2q4 {
-    background-color: rgb(116, 160, 137);
-  }
+    .Royal2q4 {
+        background-color: rgb(116, 160, 137);
+    }
 
-  .Zissou1q1 {
-    background-color: rgb(120, 183, 197);
-  }
+    .Zissou1q1 {
+        background-color: rgb(120, 183, 197);
+    }
 
-  .GrandBudapest2q3 {
-    background-color: rgb(114, 148, 212);
-  }
+    .GrandBudapest2q3 {
+        background-color: rgb(114, 148, 212);
+    }
 
-  .BottleRocket2q1 {
-    background-color: rgb(203, 35, 20);
-  }
+    .BottleRocket2q1 {
+        background-color: rgb(203, 35, 20);
+    }
 
-  .GrandBudapest1q3 {
-    background-color: rgb(214, 114, 54);
-  }
+    .GrandBudapest1q3 {
+        background-color: rgb(214, 114, 54);
+    }
 
-  .IsleofDogs1q0 {
-    background-color: rgb(153, 134, 165);
-  }
+    .IsleofDogs1q0 {
+        background-color: rgb(153, 134, 165);
+    }
 </style>

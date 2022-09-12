@@ -1,9 +1,8 @@
-from yawgbot.bot import Listing
+from yawgbot.listing import Listing
 from flask import request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker, scoped_session
 import random
-import os
 from flask import Flask, render_template
 from platformdirs import user_data_dir
 
@@ -30,7 +29,6 @@ def random_class():
         "GrandBudapest1q3",
         "IsleofDogs1q0",
     ]
-    return random.choice(wes)
 
 
 @app.get("/")
