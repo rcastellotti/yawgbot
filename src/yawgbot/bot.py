@@ -9,12 +9,11 @@ from platformdirs import user_data_dir, user_config_dir
 import yaml
 import logging
 import sys
-
+from yawgbot.listing import Listing,Base
 load_dotenv()
 db_uri = f"{user_data_dir('yawgbot', 'rcastellotti')}/yawgbot.sqlite"
 config_uri = f"{user_config_dir('yawgbot', 'rcastellotti')}/config.yml"
-engine = create_engine(f"sqlite:///{db_uri}", echo=False)
-Base = declarative_base()
+engine = create_engine(f"sqlite:///{db_uri}", echo=True)
 
 
 class Bot:
@@ -45,7 +44,7 @@ class Bot:
         os.makedirs(user_data_dir("yawgbot", "rcastellotti"), exist_ok=True)
         os.makedirs(user_config_dir("yawgbot", "rcastellotti"), exist_ok=True)
         if not database_exists(f"sqlite:///{db_uri}"):
-            Base.metadata.create_all(engine)
+            Base.metadata.create_all(bind=engine)
 
     def run(self):
         for platform in self._platforms:
